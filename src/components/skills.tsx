@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { IAllSkillsRow } from '../interfaces/skills';
 
 const UseStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -29,34 +30,32 @@ const UseStyles = makeStyles((theme: Theme) => ({
     }
   }));
 
-export default function skills() {
+type Props = {
+  skills: IAllSkillsRow;
+}
+
+
+export const skills: React.FC<Props> = ({skills}) => {
     const classes = UseStyles();
 
   return (
     <div className={classes.root}>
        <Box margin={6}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={3} className={classes.description}>
-            STRENGHT
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            12
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <LinearProgress className={classes.progress} variant="determinate" value={70} />
-          </Grid>
-        </Grid>
-   
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={3} className={classes.description}>
-            STRENGHT
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            8
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <LinearProgress className={classes.progress} variant="determinate" value={50} />
-          </Grid>
+        {skills.data?.header.map((item) => (
+            <React.Fragment>
+              <Grid item xs={12} sm={3} className={classes.description}>
+                {item.name}
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                {item.value}
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <LinearProgress className={classes.progress} variant="determinate" value={item.percentage} />
+              </Grid>
+            </React.Fragment>
+          ))
+          }
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -64,59 +63,54 @@ export default function skills() {
               Post Apocalyptic Highway
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-          1 Hill Climb
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            P R W F 
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            linea
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            00:17:35
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            5
-          </Grid>
-          <Grid item xs={12} sm={6}>
-          1 Hill Climb
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            P R W F 
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            linea
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            00:17:35
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            5
-          </Grid>
+          {skills.data?.items.filter(item => item.from === "PostApocalypticHighway").map((item) => (
+            <React.Fragment>
+              <Grid item xs={12} sm={6}>
+              {`${item.order} ${item.name}` }
+              </Grid>
+              <Grid item xs={12} sm={3}>
+              {`${item.P ? 'P' : ' '} ${item.R ? 'R' : ' '} ${item.W ? 'W' : ' '} ${item.F ? 'F' : ' '}` }
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                linea
+              </Grid>
+              <Grid item xs={12} sm={1}>
+              {item.time}
+              </Grid>
+              <Grid item xs={12} sm={1}>
+              {item.score}
+              </Grid>
+            </React.Fragment>
+          ))}
           <Grid item xs={12}>
           <Typography variant="h6" className={classes.title} gutterBottom component="div">
               Costa Rican Caves
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            1 Hill Climb
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            P R W F 
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            linea
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            00:17:35
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            6
-          </Grid>
+          {skills.data?.items.filter(item => item.from === "CostaRicaCaves").map((item) => (
+            <React.Fragment>
+              <Grid item xs={12} sm={6}>
+              {`${item.order} ${item.name}` }
+              </Grid>
+              <Grid item xs={12} sm={3}>
+              {`${item.P ? 'P' : ' '} ${item.R ? 'R' : ' '} ${item.W ? 'W' : ' '} ${item.F ? 'F' : ' '}` }
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                linea
+              </Grid>
+              <Grid item xs={12} sm={1}>
+              {item.time}
+              </Grid>
+              <Grid item xs={12} sm={1}>
+              {item.score}
+              </Grid>
+            </React.Fragment>
+          ))}
         </Grid>
 
     </Box>
     </div>
   );
-}
+};
+
+export default skills;

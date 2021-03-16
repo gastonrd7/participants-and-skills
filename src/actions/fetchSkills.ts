@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { ISkills } from '../interfaces/skills';
 import { RootState } from '../combineReducers';
 import { ThunkAction } from 'redux-thunk';
-import { IAllSkillsRow } from '../reducers/skills';
+import { IAllSkillsRow } from '../interfaces/skills';
 
 const fetchSkillsRequest = (participantId: string) => ({
     type: 'FETCH_SKILLS_REQUEST',
@@ -47,14 +47,28 @@ const fetchSkills = (
 
       const item : ISkills = {
         id: '1',
-        ParticipantId: '111',
-        Strength: 10,
-        Endurance: 11, 
-        Dexterity: 12,
-        decisionMaking: 13,
+        participantId: '111',
+        header: [{
+          name: "STRENGTH",
+          value: 12,
+          total:20,
+          percentage: 60 
+        },
+        {
+          name: "ENDURANCE",
+          value: 8,
+          total:20,
+          percentage: 40 
+        },
+        {
+          name: "DEXTERITY",
+          value: 9,
+          total:20,
+          percentage: 45 
+        }],
         items: [{
             name: "Hill Climb",
-            Order: 1,
+            order: 1,
             P: true,
             R: true,
             W: true,
@@ -62,7 +76,29 @@ const fetchSkills = (
             time: "00: 17: 34",
             score: 5,
             from: "PostApocalypticHighway"
-        }]
+        },
+        {
+          name: "Run For The Hills",
+          order: 2,
+          P: false,
+          R: false,
+          W: false,
+          F: true,
+          time: "00: 33: 30",
+          score: 5,
+          from: "PostApocalypticHighway"
+      },
+      {
+        name: "Crevasse Crossing",
+        order: 6,
+        P: true,
+        R: false,
+        W: false,
+        F: true,
+        time: "01: 33: 30",
+        score: 5,
+        from: "CostaRicaCaves"
+    }]
       }
 
       dispatch(fetchSkillsSuccess(participantId, item));
@@ -81,11 +117,7 @@ export const fetchSkillsIfNeeded = (
       if (shouldFetchSkills(getState(), participantId)) {
         const data = await dispatch(fetchSkills(participantId));
         resolve(data);
-      } 
-    //   else {
-    //     const { skills } = getState().Skills;
-    //     skills && resolve(skills);
-    //   }
+      }
     } catch (error) {
       dispatch(fetchSkillsFailure(participantId, error));
       reject();

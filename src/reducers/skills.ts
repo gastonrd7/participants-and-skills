@@ -1,29 +1,15 @@
 import { RootActions } from '../combineActions';
-import { AxiosError } from 'axios';
-import { ISkills } from '../interfaces/skills';
+import { IAllSkillsRow } from '../interfaces/skills';
 
-export type IAllSkillsRow = {
-    data: ISkills | null;
-    isFetching: boolean;
-    error: AxiosError | null;
-  };
 
 export type State = {
     rowsData: {
     [participantId: string]: IAllSkillsRow;
   };
-    expandedRows: string[];
 };
 
-// export type State = {
-//   isFetching: boolean;
-//   skills: ISkills | null;
-//   error: AxiosError | null;
-// };
-
 export const initialState: State = {
-    rowsData: {},
-    expandedRows: []
+    rowsData: {}
 };
 
 export function reducer(state: State = initialState, action: RootActions): State {

@@ -1,13 +1,23 @@
+import { AxiosError } from 'axios';
+
+export type IAllSkillsRow = {
+    data: ISkills | null;
+    isFetching: boolean;
+    error: AxiosError | null;
+  };
+
 export interface ISkills { 
     id: string,
-    ParticipantId: string,
-    Strength: number,
-    Endurance: number,
-    Dexterity: number,
-    decisionMaking: number,
-    items: [{
+    participantId: string,
+    header: {
+        name: string,
+        value: number,
+        total:number,
+        percentage: number
+    }[],
+    items: {
         name: string
-        Order: 1,
+        order: number,
         P: boolean,
         R: boolean,
         W: boolean,
@@ -15,5 +25,5 @@ export interface ISkills {
         time: string,
         score: number,
         from: "PostApocalypticHighway" | "CostaRicaCaves"
-    }]
+    }[]
 }

@@ -15,6 +15,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Skills from './skills';
 import Avatar from '@material-ui/core/Avatar';
 import { IParticipant } from '../interfaces/participant';
+import { IAllSkillsRow } from '../interfaces/skills';
 
 const useRowStyles = makeStyles({
   root: {
@@ -27,15 +28,14 @@ const useRowStyles = makeStyles({
 type Props = {
   participants: IParticipant[] | null;
   fetchSkills: (id: string) => void;
+  rowsData : {
+    [participantId: string]: IAllSkillsRow;
+  }
 }
 
-const Row : React.FC<{item: IParticipant, fetchSkills: (id: string) => void}> = ({item, fetchSkills}) => {
+const Row : React.FC<{item: IParticipant, fetchSkills: (id: string) => void, skills: IAllSkillsRow}> = ({item, fetchSkills, skills}) => {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
-
-  // const fetchSkills = (id: string) => {
-
-  // }
 
   return (
     <React.Fragment>
@@ -59,7 +59,7 @@ const Row : React.FC<{item: IParticipant, fetchSkills: (id: string) => void}> = 
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Skills />
+            <Skills skills={skills} />
           </Collapse>
         </TableCell>
       </TableRow>
@@ -67,7 +67,8 @@ const Row : React.FC<{item: IParticipant, fetchSkills: (id: string) => void}> = 
   );
 }
 
-export const CollapsibleTable: React.FC<Props> = ({participants, fetchSkills}) => {
+export const CollapsibleTable: React.FC<Props> = ({participants, fetchSkills, rowsData}) => {
+  debugger
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -85,8 +86,8 @@ export const CollapsibleTable: React.FC<Props> = ({participants, fetchSkills}) =
           </TableRow>
         </TableHead>
         <TableBody>
-          {participants ? participants.map((item) => (
-            <Row item={item} fetchSkills={fetchSkills} />
+          {participants ? participants.map((item: IParticipant) => (
+            <Row item={item} fetchSkills={fetchSkills} skills={rowsData[item.id]} />
           )) : "There is not any row"
           }
         </TableBody>

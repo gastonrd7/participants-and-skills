@@ -76,9 +76,6 @@ export const fetchParticipantsIfNeeded = (
       if (shouldFetchParticipants(getState())) {
         const data = await dispatch(fetchParticipants());
         resolve(data);
-      } else {
-        const { participants } = getState().Participants;
-        participants && resolve(participants);
       }
     } catch (error) {
       dispatch(fetchParticipantsFailure(error));
