@@ -1,5 +1,5 @@
 export interface IParticipant { 
-    id: string;
+    _id: string;
     fullNane: string;
     profilePicture: string;
     bib: number;

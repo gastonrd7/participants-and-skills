@@ -7,7 +7,7 @@ export type IAllSkillsRow = {
   };
 
 export interface ISkills { 
-    id: string,
+    _id: string,
     participantId: string,
     header: {
         name: string,

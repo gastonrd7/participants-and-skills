@@ -30,7 +30,6 @@ const shouldFetchSkills = (
 ) => 
 {
     const itemSelected : IAllSkillsRow  =  rowsData[participantId];
-    debugger
     return !(itemSelected && !itemSelected.isFetching);
 }
 
@@ -40,69 +39,69 @@ const fetchSkills = (
   new Promise(async (resolve, reject) => {
     try {
       dispatch(fetchSkillsRequest(participantId));
-      // const { data } = await axios.get<IParticipant[]>(
-      //   `/api/Participants`,
-      //   //{ params }
-      // );
+      const { data : {skill} } = await axios.get<{skill: ISkills[]}>(
+        `http://localhost:3001/Api/getSkills/${participantId}`,
+        //{ params }
+      );
 
-      const item : ISkills = {
-        id: '1',
-        participantId: '111',
-        header: [{
-          name: "STRENGTH",
-          value: 12,
-          total:20,
-          percentage: 60 
-        },
-        {
-          name: "ENDURANCE",
-          value: 8,
-          total:20,
-          percentage: 40 
-        },
-        {
-          name: "DEXTERITY",
-          value: 9,
-          total:20,
-          percentage: 45 
-        }],
-        items: [{
-            name: "Hill Climb",
-            order: 1,
-            P: true,
-            R: true,
-            W: true,
-            F: true,
-            time: "00: 17: 34",
-            score: 5,
-            from: "PostApocalypticHighway"
-        },
-        {
-          name: "Run For The Hills",
-          order: 2,
-          P: false,
-          R: false,
-          W: false,
-          F: true,
-          time: "00: 33: 30",
-          score: 5,
-          from: "PostApocalypticHighway"
-      },
-      {
-        name: "Crevasse Crossing",
-        order: 6,
-        P: true,
-        R: false,
-        W: false,
-        F: true,
-        time: "01: 33: 30",
-        score: 5,
-        from: "CostaRicaCaves"
-    }]
-      }
-
-      dispatch(fetchSkillsSuccess(participantId, item));
-      resolve(item);
+    //   const item : ISkills = {
+    //     _id: '1',
+    //     participantId: '111',
+    //     header: [{
+    //       name: "STRENGTH",
+    //       value: 12,
+    //       total:20,
+    //       percentage: 60 
+    //     },
+    //     {
+    //       name: "ENDURANCE",
+    //       value: 8,
+    //       total:20,
+    //       percentage: 40 
+    //     },
+    //     {
+    //       name: "DEXTERITY",
+    //       value: 9,
+    //       total:20,
+    //       percentage: 45 
+    //     }],
+    //     items: [{
+    //         name: "Hill Climb",
+    //         order: 1,
+    //         P: true,
+    //         R: true,
+    //         W: true,
+    //         F: true,
+    //         time: "00: 17: 34",
+    //         score: 5,
+    //         from: "PostApocalypticHighway"
+    //     },
+    //     {
+    //       name: "Run For The Hills",
+    //       order: 2,
+    //       P: false,
+    //       R: false,
+    //       W: false,
+    //       F: true,
+    //       time: "00: 33: 30",
+    //       score: 5,
+    //       from: "PostApocalypticHighway"
+    //   },
+    //   {
+    //     name: "Crevasse Crossing",
+    //     order: 6,
+    //     P: true,
+    //     R: false,
+    //     W: false,
+    //     F: true,
+    //     time: "01: 33: 30",
+    //     score: 5,
+    //     from: "CostaRicaCaves"
+    // }]
+    //   }
+        debugger
+      dispatch(fetchSkillsSuccess(participantId, skill[0]));
+      resolve(skill[0]);
     } catch (error) {
       dispatch(fetchSkillsFailure(participantId, error));
       reject();

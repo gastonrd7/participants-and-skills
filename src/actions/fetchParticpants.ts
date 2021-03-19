@@ -8,7 +8,7 @@ const fetchParticipantsRequest = () =>
     type: 'FETCH_PARTICIPANTS_REQUEST'
   } as const);
 
-const fetchParticipantsSuccess = (payload: IParticipant[]) =>
+const fetchParticipantsSuccess = (payload: IParticipant[] | null) =>
   ({
     type: 'FETCH_PARTICIPANTS_SUCCESS',
     payload
@@ -31,37 +31,11 @@ const fetchParticipants = (
   new Promise(async (resolve, reject) => {
     try {
       dispatch(fetchParticipantsRequest());
-      // const { data } = await axios.get<IParticipant[]>(
-      //   `/api/Participants`,
-      //   //{ params }
-      // );
+      const { data } = await axios.get<IParticipant[]>(
+        `http://localhost:3001/Api/getParticipants`,
+      );
 
-      const item1 : IParticipant = {
-        id: '111',
-        fullNane: "Gaston Ruiz Diaz",
-        profilePicture: "https://material-ui.com/static/images/avatar/1.jpg",
-        bib: 1,
-        age: 32,
-        gender: 'M',
-        time: "11: 45",
-        score: 100
-      }
-
-      const ite2 : IParticipant = {
-        id: '2',
-        fullNane: "Guillermina Hermosa Diaz ",
-        profilePicture: "https://material-ui.com/static/images/avatar/1.jpg",
-        bib: 2,
-        age: 62,
-        gender: 'F',
-        time: "12: 45",
-        score: 200
-      }
-      const data :IParticipant []  = [
-        item1, ite2
-      ]
-
-      dispatch(fetchParticipantsSuccess(data));
+      dispatch(fetchParticipantsSuccess(data.length > 0 ? data : null));
       resolve(data);
     } catch (error) {
       dispatch(fetchParticipantsFailure(error));
