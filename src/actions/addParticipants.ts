@@ -22,7 +22,6 @@ const addParticipantsFailure = (error: AxiosError) => {
 const shouldAddParticipants = (
   { Participants: { isFetching, participants } }: RootState
 ) =>{
-    debugger
     return (!participants && !isFetching);
 }
   
@@ -31,7 +30,6 @@ const addParticipants = (
 ): ThunkAction<Promise<void>, RootState, null, Actions> => async dispatch =>
   new Promise(async (resolve, reject) => {
     try {
-        debugger;
       dispatch(addParticipantsRequest());
       await axios.post<{success: boolean, message: string}>(
         `http://localhost:3001/Api/initAndGetParticipants`,
