@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { IAllSkillsRow } from '../interfaces/skills';
 
 const UseStyles = makeStyles((theme: Theme) => ({
@@ -39,7 +38,7 @@ export const skills: React.FC<Props> = ({skills}) => {
     const classes = UseStyles();
 
   return (
-    <div className={classes.root}>
+    <div id={skills.data?._id} className={classes.root}>
        <Box margin={6}>
         <Grid container spacing={2}>
         {skills.data?.header.map((item) => (
