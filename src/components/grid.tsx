@@ -49,7 +49,7 @@ const Row : React.FC<{item: IParticipant, fetchSkills: (id: string) => void, ski
         <TableCell align="center" size="small">
         <Avatar alt="Remy Sharp" src={item.profilePicture} />
         </TableCell>
-        <TableCell align="left">{item.fullNane}</TableCell>
+        <TableCell align="left">{item.fullName}</TableCell>
         <TableCell align="center">{item.bib}</TableCell>
         <TableCell align="center">{item.age}</TableCell>
         <TableCell align="center">{item.gender}</TableCell>

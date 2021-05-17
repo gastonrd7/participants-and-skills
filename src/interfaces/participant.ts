@@ -1,6 +1,6 @@
 export interface IParticipant { 
     _id: string;
-    fullNane: string;
+    fullName: string;
     profilePicture: string;
     bib: number;
     age: number;
